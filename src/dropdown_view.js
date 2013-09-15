@@ -247,11 +247,13 @@ var DropdownView = (function() {
         // show this dataset in case it was previously empty
         // and render the new suggestions
         $dataset.show().find('.tt-suggestions').html(fragment);
+        this.trigger("rendered");
       }
 
       // no suggestions to render
       else {
         this.clearSuggestions(dataset.name);
+        this.trigger("clearRendered");
       }
 
       this.trigger('suggestionsRendered');
