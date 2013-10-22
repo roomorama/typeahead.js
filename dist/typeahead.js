@@ -23,9 +23,6 @@
         isNumber: function(obj) {
             return typeof obj === "number";
         },
-        isFunction: function(obj) {
-            return typeof obj === "function";
-        },
         isArray: $.isArray,
         isFunction: $.isFunction,
         isObject: $.isPlainObject,
@@ -426,6 +423,8 @@
                         adjacencyList: storedAdjacencyList
                     });
                     deferred = $.Deferred().resolve();
+                } else if (o.localSource != undefined) {
+                    deferred = processPrefetchData(JSON.parse(o.localSource));
                 } else {
                     deferred = $.getJSON(o.url).done(processPrefetchData);
                 }
@@ -495,7 +494,7 @@
             },
             _getDefaultList: function() {
                 var defaultList = [];
-                for (var i = 0; i < this.limit; i++) {
+                for (var i = 0; i < Math.min(this.limit, this.defaultOrder.length); i++) {
                     defaultList.push(this.itemHash[this.defaultOrder[i]]);
                 }
                 return defaultList;
