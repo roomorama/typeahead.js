@@ -92,6 +92,10 @@ var Dataset = (function() {
         deferred = $.Deferred().resolve();
       }
 
+      else if (o.localSource != undefined) {
+        deferred = processPrefetchData(JSON.parse(o.localSource));    
+      } 
+
       else {
         deferred = $.getJSON(o.url).done(processPrefetchData);
       }
